@@ -1,0 +1,18 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": "standard",
+  "parser": "babel-eslint",
+  "plugins": [
+    "flowtype",
+    "react"
+  ],
+  "rules":{
+    "react/jsx-uses-vars": 2,
+    "react/jsx-uses-react": 1,
+    "no-undef": "off"
+  }
+}

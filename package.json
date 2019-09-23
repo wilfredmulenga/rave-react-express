@@ -1,0 +1,21 @@
+{
+  "name": "ravetest",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "client": "cd client && npm run start",
+    "test": "cd client && npm run test",
+    "server": "nodemon app.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "concurrently": "^4.1.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
+    "nodemon": "^1.19.2"
+  }
+}
