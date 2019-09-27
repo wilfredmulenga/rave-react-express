@@ -18,7 +18,15 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'client/public')))
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE')
+  res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Access-Control-Allow-Origin, Origin, X-Requested-With, X-AUTHENTICATION, X-IP, Content-Type, Accept, Authorization')
+  res.setHeader('Access-Control-Allow-Credentials', 'false')
+  next()
+})
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
@@ -37,8 +45,8 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500)
   res.render('error')
-
-  app.listen(port, () => console.log(`Listening on port ${port}`))
 })
+
+app.listen(port, () => console.log(`Listening on port ${port}`))
 
 module.exports = app

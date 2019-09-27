@@ -1,4 +1,4 @@
-# react-express template
+# rave-test
 
 boilerplate code to start a project using react and express.
 
