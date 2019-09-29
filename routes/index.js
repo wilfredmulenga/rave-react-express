@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const crypto = require('crypto')
-const CryptoJS = require('crypto-js');
-const forge    = require('node-forge');
-const utf8     = require('utf8');
+const forge = require('node-forge');
+const utf8 = require('utf8');
+const superagent = require('superagent');
 
 router.get('/', async (req, res, next) =>  {
   const payload = {
@@ -33,27 +33,42 @@ router.get('/', async (req, res, next) =>  {
 }
 
 const encrypt = (payload) => {
-  var cipher   = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(getKey()));
+  payloadJSON = JSON.stringify(payload)
+  let cipher = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(getKey()));
   cipher.start({iv:''});
-  cipher.update(forge.util.createBuffer(payload, 'utf-8'));
+  cipher.update(forge.util.createBuffer(payloadJSON, 'utf-8'));
   cipher.finish();
-  var encrypted = cipher.output;
+  let encrypted = cipher.output;
   return (forge.util.encode64(encrypted.getBytes()));
 }
 
+// console.log(encrypt(payload))
+
 const raveResponse = (payload) => {
-  console.log(here. process.env.RAVE_CHARGE_ENDPOINT)
-  .post(process.env.RAVE_CHARGE_ENDPOINT)
+  superagent
+  .post(process.env.RAVE_CHARGE_ENDPOINT_TEST)
   .set({ 'Content-Type': 'application/json', 'Accept': 'application/json' })
   .send({
     PBFPubKey: process.env.RAVE_PUBLIC_KEY,
     client: encrypt(payload),
     alg: '3DES-24'
   })
+  .end((err, result) => {
+    if(err) {
+      // TODO: handle error
+      res.json({
+        message: err
+      })
+    }
+    res.json({
+      statusCode: result.statusCode,
+      message: result.ok
+    })
+  })
 }
 // TODO: handle await
-  const value = await raveResponse(payload)
-  res.json({message: value})
+  await raveResponse(payload)
+  // res.json({message: value})
 })
 
 module.exports = router
