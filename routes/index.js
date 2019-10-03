@@ -5,13 +5,13 @@ const forge = require('node-forge')
 const superagent = require('superagent')
 
 router.post('/', async (req, res, next) => {
-  const { amount, cardNumber, expiryDate, cvv } = req.body
+  const { amount, cardNumber: cardno, expiryDate, cvv } = req.body
   const expirymonth = expiryDate.substring(0, 2)
   const expiryyear = expiryDate.substring(3, 5)
 
   const payload = {
     'PBFPubKey': process.env.RAVE_PUBLIC_KEY,
-    cardNumber,
+    cardno,
     cvv,
     expirymonth,
     expiryyear,
@@ -68,8 +68,8 @@ router.post('/', async (req, res, next) => {
         })
       })
   }
-  // TODO: handle await
-  // await raveResponse(payload)
+
+  await raveResponse(payload)
   // res.json({message: value})
 })
 
