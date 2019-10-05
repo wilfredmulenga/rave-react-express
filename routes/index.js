@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const crypto = require('crypto')
-const forge = require('node-forge')
 const superagent = require('superagent')
+const { encrypt } = require('../common-helpers/helpers')
 
 router.post('/', async (req, res, next) => {
   const { amount, cardNumber: cardno, expiryDate, cvv } = req.body
@@ -15,11 +14,11 @@ router.post('/', async (req, res, next) => {
     cvv,
     expirymonth,
     expiryyear,
-    'currency': 'NGN',
-    'country': 'NG',
+    'currency': 'ZMW',
+    'country': 'ZM',
     amount,
-    'pin': '3310',
-    'suggested_auth': 'PIN',
+    // 'pin': '3310',
+    // 'suggested_auth': 'PIN',
     'email': 'user@gmail.com',
     'phonenumber': '0902620185',
     'firstname': 'temi',
@@ -28,28 +27,9 @@ router.post('/', async (req, res, next) => {
     // "redirect_url": "https://rave-webhook.herokuapp.com/receivepayment"
   }
 
-  const getKey = () => {
-    const secKey = process.env.RAVE_SECRET_KEY
-    const keymd5 = crypto.createHash('md5').update(process.env.RAVE_SECRET_KEY).digest('hex')
-    const keymd5last12 = keymd5.substr(-12)
-    const seckeyadjusted = secKey.replace('FLWSECK-', '')
-    const seckeyadjustedfirst12 = seckeyadjusted.substr(0, 12)
-    return seckeyadjustedfirst12 + keymd5last12
-  }
-
-  const encrypt = (payload) => {
-    payloadJSON = JSON.stringify(payload)
-    let cipher = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(getKey()))
-    cipher.start({iv: ''})
-    cipher.update(forge.util.createBuffer(payloadJSON, 'utf-8'))
-    cipher.finish()
-    let encrypted = cipher.output
-    return (forge.util.encode64(encrypted.getBytes()))
-  }
-
   const raveResponse = (payload) => {
     superagent
-      .post(process.env.RAVE_CHARGE_ENDPOINT_TEST)
+      .post(process.env.RAVE_CHARGE_ENDPOINT)
       .set({ 'Content-Type': 'application/json', 'Accept': 'application/json' })
       .send({
         PBFPubKey: process.env.RAVE_PUBLIC_KEY,
