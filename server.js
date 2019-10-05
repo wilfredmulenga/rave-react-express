@@ -1,14 +1,15 @@
-var createError = require('http-errors')
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var logger = require('morgan')
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
 require('dotenv').config()
 
-var indexRouter = require('./routes/index')
-var usersRouter = require('./routes/users')
+const initiateChargeRouter = require('./routes/initiateCharge')
+const mobileMoneyRouter = require('./routes/mobileMoney')
+const validateRouter = require('./routes/validate')
 
-var app = express()
+const app = express()
 const port = 5000
 
 app.use(function (req, res, next) {
@@ -29,8 +30,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/', indexRouter)
-app.use('/users', usersRouter)
+app.use('/initiate-charge', initiateChargeRouter)
+app.use('/mobile-money', mobileMoneyRouter)
+app.use('/validate', validateRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
