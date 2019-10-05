@@ -36,10 +36,10 @@ const raveResponse = (payload) => {
         // TODO: handle error
       }
       console.log(result.body)
-      res.json({
-        statusCode: result.statusCode,
-        message: result.body
-      })
+      // res.json({
+      //   statusCode: result.statusCode,
+      //   message: result.body
+      // })
     })
 }
 

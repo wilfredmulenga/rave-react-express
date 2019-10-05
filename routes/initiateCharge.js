@@ -8,21 +8,21 @@ router.post('/', async (req, res, next) => {
   const expiryyear = expiryDate.substring(3, 5)
 
   const payload = {
-    'PBFPubKey': process.env.RAVE_PUBLIC_KEY,
+    PBFPubKey: process.env.RAVE_PUBLIC_KEY,
     cardno,
     cvv,
     expirymonth,
     expiryyear,
-    'currency': 'ZMW',
-    'country': 'ZM',
+    currency: 'ZMW',
+    country: 'ZM',
     amount,
     // 'pin': '3310',
     // 'suggested_auth': 'PIN',
-    'email': 'user@gmail.com',
-    'phonenumber': '0902620185',
-    'firstname': 'temi',
-    'lastname': 'desola',
-    'txRef': 'MC-' + Date.now() // your unique merchant reference
+    email: 'user@gmail.com',
+    phonenumber: '0902620185',
+    firstname: 'temi',
+    lastname: 'desola',
+    txRef: 'MC-' + Date.now() // your unique merchant reference
     // "redirect_url": "https://rave-webhook.herokuapp.com/receivepayment"
   }
 
