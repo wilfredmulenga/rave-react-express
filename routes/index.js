@@ -18,6 +18,8 @@ router.post('/', async (req, res, next) => {
     'currency': 'NGN',
     'country': 'NG',
     amount,
+    'pin': '3310',
+    'suggested_auth': 'PIN',
     'email': 'user@gmail.com',
     'phonenumber': '0902620185',
     'firstname': 'temi',
@@ -71,6 +73,36 @@ router.post('/', async (req, res, next) => {
 
   await raveResponse(payload)
   // res.json({message: value})
+})
+
+// TODO: not getting the right response when validating the transaction. find out if this is needed
+router.post('/validate', async (req, res, next) => {
+  const { transaction_reference, otp } = req.body  // eslint-disable-line
+
+  const raveResponse = () => {
+    superagent
+      .post(process.env.RAVE_VALIDATE_ENDPOINT)
+      .send({
+        PBFPubKey: process.env.RAVE_PUBLIC_KEY,
+        transaction_reference,
+        otp
+      })
+      .end((err, result) => {
+        if (err) {
+          // TODO: handle error
+          res.json({
+            message: err
+          })
+        }
+        console.log(result.body)
+        res.json({
+          statusCode: result.statusCode,
+          message: result.body
+        })
+      })
+  }
+
+  await raveResponse()
 })
 
 module.exports = router
