@@ -1,11 +1,11 @@
 const crypto = require('crypto')
 const forge = require('node-forge')
-const superagent = require('superagent')
+const request = require('superagent')
 
 // reference to encryption: https://developer.flutterwave.com/reference#rave-encryption
 const getKey = () => {
-  const secKey = process.env.RAVE_SECRET_KEY
-  const keymd5 = crypto.createHash('md5').update(process.env.RAVE_SECRET_KEY).digest('hex')
+  const secKey = process.env.RAVE_SECRET_KEY_TEST
+  const keymd5 = crypto.createHash('md5').update(process.env.RAVE_SECRET_KEY_TEST).digest('hex')
   const keymd5last12 = keymd5.substr(-12)
   const seckeyadjusted = secKey.replace('FLWSECK-', '')
   const seckeyadjustedfirst12 = seckeyadjusted.substr(0, 12)
@@ -22,24 +22,14 @@ const encrypt = (payload) => {
   return (forge.util.encode64(encrypted.getBytes()))
 }
 
-const raveResponse = (payload) => {
-  superagent
-    .post(process.env.RAVE_CHARGE_ENDPOINT)
+const raveResponse = async (payload) => {
+  return request
+    .post(process.env.RAVE_CHARGE_ENDPOINT_TEST)
     .set({ 'Content-Type': 'application/json', 'Accept': 'application/json' })
     .send({
-      PBFPubKey: process.env.RAVE_PUBLIC_KEY,
+      PBFPubKey: process.env.RAVE_PUBLIC_KEY_TEST,
       client: encrypt(payload),
       alg: '3DES-24'
-    })
-    .end((err, result) => {
-      if (err) {
-        // TODO: handle error
-      }
-      console.log(result.body)
-      // res.json({
-      //   statusCode: result.statusCode,
-      //   message: result.body
-      // })
     })
 }
 
