@@ -24,8 +24,8 @@ router.post('/', async (req, res, next) => {
       phonenumber: '0902620185',
       firstname: 'temi',
       lastname: 'desola',
-      txRef: 'MC-' + Date.now() // your unique merchant reference
-    // "redirect_url": "https://rave-webhook.herokuapp.com/receivepayment"
+      txRef: 'MC-' + Date.now(), // your unique merchant reference
+      redirect_url: 'http://localhost:5000/verify'
     }
 
     const result = await raveResponse(payload)
