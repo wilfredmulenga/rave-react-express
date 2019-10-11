@@ -14,6 +14,7 @@ class App extends React.Component {
 
   handleClick = async () => {
    const { amount, cardNumber, expiryDate, cvv } = this.state
+   try {
    const data = await fetch(`http://localhost:5000/initiate-charge`, {
     method: 'POST',
     headers: {
@@ -22,10 +23,14 @@ class App extends React.Component {
     body: JSON.stringify({ amount, cardNumber, expiryDate, cvv })
    })
    const res = await data.json()
-   console.log(res)
-  //  if(res.message.message === 'AUTH_SUGGESTION' && res.message.status === 'success') {
-  //   this.props.history.push('/verify')
-  //  }
+
+   const { message: { authurl, status } } = res
+   if(status === 'success-pending-validation' && authurl) {
+    window.location.assign(authurl)
+   }
+  } catch(error) {
+    console.log(error)
+  }
   }
 
   handleInput = (field, value) => this.setState({ [field]: value })
