@@ -7,7 +7,7 @@ require('dotenv').config()
 
 const initiateChargeRouter = require('./routes/initiateCharge')
 const mobileMoneyRouter = require('./routes/mobileMoney')
-const validateRouter = require('./routes/validate')
+const validateRouter = require('./routes/verify')
 
 const app = express()
 const port = 5000
@@ -32,7 +32,7 @@ app.use(cookieParser())
 
 app.use('/initiate-charge', initiateChargeRouter)
 app.use('/mobile-money', mobileMoneyRouter)
-app.use('/validate', validateRouter)
+app.use('/verify', validateRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
