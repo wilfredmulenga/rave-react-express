@@ -1,15 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import App from './App'
+import Home from './Home'
 import * as serviceWorker from './serviceWorker'
-import Verify from './Verify'
+import Card from './Card'
+import MobileMoney from './MobileMoney'
 
 const Main = () => {
   return (
     <Router>
-      <Route exact path="/" component={ App } />
-      <Route path="/verify" component={ Verify } />
+      <Route exact path="/" component={ Home } />
+      <Route path="/card" component={ Card } />
+      <Route path="/mobilemoney" component={ MobileMoney } />
     </Router>
   )
 }
