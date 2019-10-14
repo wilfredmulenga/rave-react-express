@@ -18,12 +18,10 @@ router.post('/', async (req, res, next) => {
       currency: 'ZMW',
       country: 'ZM',
       amount,
-      // 'pin': '3310',
-      // 'suggested_auth': 'PIN',
       email: 'user@gmail.com',
       phonenumber: '0902620185',
-      firstname: 'temi',
-      lastname: 'desola',
+      firstname: 'firstname',
+      lastname: 'lastname',
       txRef: 'MC-' + Date.now(), // your unique merchant reference
       redirect_url: 'http://localhost:5000/verify'
     }
