@@ -43,13 +43,13 @@ class Card extends React.Component {
   // TODO: show success, error message, and/or loader after pressing the button
   return (
     <div className="container">
-      <div className="formContainer">
-      <h1>Rave payment test</h1>
+      <div className="innerContainer">
+      <h1>Card payment test</h1>
       <input placeholder="amount" type="number" onChange={(e) => this.handleInput("amount", e.target.value)} required />
       <input placeholder="card number" type="text" onChange={(e) => this.handleInput("cardNumber", e.target.value)} required />
       <input placeholder="expiry date" type="text" onChange={(e) => this.handleInput("expiryDate", e.target.value)} required />
       <input placeholder="cvv" type="number" onChange={(e) => this.handleInput("cvv", e.target.value)} required />
-      <button onClick={() => this.handleClick()}>pay me</button>
+      <button className="button" onClick={() => this.handleClick()}>pay</button>
       </div>
     </div>
   );

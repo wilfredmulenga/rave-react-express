@@ -2,28 +2,53 @@ html {
   font-size: 14pt;
 }
 
+body {
+  background-color: aliceblue;
+}
+
 .container {
   display: flex;
   justify-content: center;
 }
 
-.formContainer {
+.innerContainer {
   text-align: center;
   display: inline-grid;
-  width: 30vw;
+  width: 50vw;
 }
 
-.formContainer input {
+.innerContainer input {
   height: 2rem;
   width: inherit;
   font-size: 1.2rem;
   margin: 1% 0 5%;
 }
 
-.formContainer button {
-  widows: 50%;
-  background-color: blue;
+.button {
+  width: 100%;
   color: white;
   font-size: 1.2rem;
   margin-top: 10%;
+  display: inline-block;
+  padding: 8px 24px;
+  opacity: 0.8;
+  border-radius: 4px;
+  background-color: #4B53C1;
+  cursor: pointer;
+  box-shadow: 0 5px #5E2C89;
+}
+
+.button:hover {
+    opacity : 1;
+}
+
+.button:active {
+  position: relative;
+  top: 7px;
+  box-shadow: none;
+}
+
+.buttonWrapper {
+  display: grid;
+  justify-content: center;
 }
