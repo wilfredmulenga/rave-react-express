@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 require('dotenv').config()
 
-const initiateChargeRouter = require('./routes/initiateCharge')
+const cardRouter = require('./routes/card')
 const mobileMoneyRouter = require('./routes/mobileMoney')
 const validateRouter = require('./routes/verify')
 
@@ -30,7 +30,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/initiate-charge', initiateChargeRouter)
+app.use('/initiate-charge', cardRouter)
 app.use('/mobile-money', mobileMoneyRouter)
 app.use('/verify', validateRouter)
 
