@@ -4,9 +4,11 @@ class MobileMoney extends React.Component {
   constructor(){
     super()
     this.state = {
+    fields: {
       mobileNumber: '',
       amount: '',
       pendingValidation: false
+    }
     }
   }
 
@@ -37,13 +39,29 @@ class MobileMoney extends React.Component {
   }
   }
 
-  handleInput = (field, value) => this.setState({ [field]: value })
+  onInputChange = (evt) => {
+    const { name, value } = evt.target
+    const { fields } = this.state
+    fields[name] = value
+    this.setState({ fields })
+  }
 
   renderInputFields = (
       <>
-      <input placeholder="amount" type="number" onChange={(e) => this.handleInput("amount", e.target.value)} required />
-      <input placeholder="0967000000" type="text" onChange={(e) => this.handleInput("mobileNumber", e.target.value)} required />
-      <button className="button" onClick={() => this.handleClick()}>pay</button>
+      <input
+      placeholder="amount"
+      type="number"
+      name="number"
+      onChange={this.onInputChange}
+      required />
+      <input
+      placeholder="0967000000"
+      type="text"
+      onChange={this.onInputChange}
+      required />
+      <button
+      className="button"
+      onClick={this.handleClick}>pay</button>
       </>
   )
 
