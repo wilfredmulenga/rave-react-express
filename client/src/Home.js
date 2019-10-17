@@ -5,10 +5,10 @@ import './App.css'
 const Home = () => {
   return (
     <div className="container">
-      <div className="innerContainer">
+      <div className="inner-container">
         <h1>Welcome to the Flutterwave Rave test</h1>
         <h2>Which form of payment do you want to try?</h2>
-        <div className="buttonWrapper">
+        <div className="button-wrapper">
           <Link to='/card'>
             <button className="button" >Card</button>
           </Link>

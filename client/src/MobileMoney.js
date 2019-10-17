@@ -13,7 +13,7 @@ class MobileMoney extends React.Component {
   }
 
   handleClick = async () => {
-   const { amount, mobileNumber } = this.state
+   const { amount, mobileNumber } = this.state.fields
    try {
    const data = await fetch(`http://localhost:5000/mobile-money`, {
     method: 'POST',
@@ -77,7 +77,7 @@ class MobileMoney extends React.Component {
 
   return (
     <div className="container">
-      <div className="innerContainer">
+      <div className="inner-container">
       <h1>MTN mobile money payment test</h1>
       { pendingValidation ? this.renderPendingValidation : this.renderInputFields  }
       </div>

@@ -11,13 +11,13 @@ body {
   justify-content: center;
 }
 
-.innerContainer {
+.inner-container {
   text-align: center;
   display: inline-grid;
   width: 50vw;
 }
 
-.innerContainer input {
+.inner-container input {
   height: 2rem;
   width: inherit;
   font-size: 1.2rem;
@@ -48,7 +48,15 @@ body {
   box-shadow: none;
 }
 
-.buttonWrapper {
+.button-wrapper {
   display: grid;
   justify-content: center;
+}
+
+.error-message {
+  margin-top: 5%;
+}
+
+.error-message p {
+  color: red;
 }
