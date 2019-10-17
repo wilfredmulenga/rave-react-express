@@ -15,7 +15,8 @@ class Card extends React.Component {
     }
   }
 
-  handleClick = async () => {
+  onFormSubmit = async (evt) => {
+    evt.preventDefault()
     this.setState({ loading: true })
    const { amount, cardNumber, expiryDate, cvv } = this.state.fields
    try {
@@ -54,8 +55,7 @@ class Card extends React.Component {
  render(){
 
   // TODO: configure eslint
-  // TODO: clear input fields after pressing the button
-
+  // TODO: form validation
   const { errorMessage, loading } = this.state
   if(loading) {
     return (
@@ -68,6 +68,7 @@ class Card extends React.Component {
     <div className="container">
       <div className="inner-container">
       <h1>Card payment test</h1>
+      <form onSubmit={this.onFormSubmit}>
       <input
       placeholder="amount"
       type="number"
@@ -98,7 +99,9 @@ class Card extends React.Component {
       required />
       <button
       className="button"
-      onClick={() => this.handleClick()}>pay</button>
+      type="submit"
+      >pay</button>
+      </form>
       {
         (errorMessage !== '') ?
         <div className='error-message'>

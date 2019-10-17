@@ -13,7 +13,9 @@ class MobileMoney extends React.Component {
     }
   }
 
-  handleClick = async () => {
+  onSubmitForm = async (evt) => {
+    evt.preventDefault()
+
    const { amount, mobileNumber } = this.state.fields
    this.setState({ loading: true })
    try {
@@ -36,8 +38,10 @@ class MobileMoney extends React.Component {
     })
    }
   } catch(error) {
-    // TODO: remove log and show error message
-    console.log(error)
+    this.setState({
+      loading: false,
+      errorMessage: 'an error occcured. Please try again'
+      })
   }
   }
 
@@ -50,7 +54,8 @@ class MobileMoney extends React.Component {
 
   renderInputFields = (
       <>
-      <input
+     <form onSubmit={this.onSubmitForm}>
+     <input
       placeholder="amount"
       type="number"
       name="number"
@@ -63,7 +68,9 @@ class MobileMoney extends React.Component {
       required />
       <button
       className="button"
-      onClick={this.handleClick}>pay</button>
+      type="submit"
+      >pay</button>
+     </form>
       </>
   )
 
