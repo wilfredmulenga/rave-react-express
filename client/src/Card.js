@@ -17,6 +17,7 @@ class Card extends React.Component {
 
   onFormSubmit = async (evt) => {
     evt.preventDefault()
+    if(this.validate()) return
     this.setState({ loading: true })
    const { amount, cardNumber, expiryDate, cvv } = this.state.fields
    try {
@@ -43,6 +44,31 @@ class Card extends React.Component {
      errorMessage: 'an error occcured. Please try again'
      })
   }
+  }
+
+  validate = () => {
+    const { cardNumber, expiryDate, cvv } = this.state.fields
+    const { errorMessage } = this.state
+
+    if(!(cardNumber.length === 16)) {
+      this.setState({
+        errorMessage: 'card number length not valid'},() => {
+          return true
+        })
+    }
+    return true
+    if(!(expiryDate.length === 5)) {
+      this.setState({
+        errorMessage: 'expiry date length not valid'},() => {
+          return true
+        })
+    }
+    if(!(cvv.length === 3)) {
+      this.setState({
+        errorMessage: 'cvv length not valid'},() => {
+          return true
+        })
+    }
   }
 
   onInputChange = (evt) => {
