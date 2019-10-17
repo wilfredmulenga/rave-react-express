@@ -9,12 +9,15 @@ class Card extends React.Component {
       cardNumber: '',
       expiryDate: '',
       cvv: ''
-     }
+     },
+     errorMessage: '',
+     loading: false
     }
   }
 
   handleClick = async () => {
-   const { amount, cardNumber, expiryDate, cvv } = this.state
+    this.setState({ loading: true })
+   const { amount, cardNumber, expiryDate, cvv } = this.state.fields
    try {
    const data = await fetch(`http://localhost:5000/initiate-charge`, {
     method: 'POST',
@@ -23,15 +26,21 @@ class Card extends React.Component {
     },
     body: JSON.stringify({ amount, cardNumber, expiryDate, cvv })
    })
-   const res = await data.json()
 
-   const { message: { authurl, status } } = res
-   if(status === 'success-pending-validation' && authurl) {
+   const res = await data.json()
+   const { message: { authurl, status }, statusCode } = res
+   if( statusCode === 200 && status === 'success-pending-validation' && authurl) {
+    this.setState({ loading: false })
     window.location.assign(authurl)
    }
+   if( statusCode === 400) {
+    this.setState({ errorMessage: res.message})
+   }
   } catch(error) {
-    // TODO: remove log and show error message
-    console.log(error)
+   this.setState({
+     loading: false,
+     errorMessage: 'an error occcured. Please try again'
+     })
   }
   }
 
@@ -39,18 +48,25 @@ class Card extends React.Component {
     const { name, value } = evt.target
     const { fields } = this.state
     fields[name] = value
-    this.setState({ fields })
+    this.setState({ fields, errorMessage: '' })
   }
 
  render(){
 
   // TODO: configure eslint
-  // TODO: call this route 'card' and make a separate 'mtn' mobile money route
   // TODO: clear input fields after pressing the button
-  // TODO: show success, error message, and/or loader after pressing the button
+
+  const { errorMessage, loading } = this.state
+  if(loading) {
+    return (
+      <div className="loader-container">
+      <div className="loader" />
+    </div>
+    )
+  }
   return (
     <div className="container">
-      <div className="innerContainer">
+      <div className="inner-container">
       <h1>Card payment test</h1>
       <input
       placeholder="amount"
@@ -83,6 +99,13 @@ class Card extends React.Component {
       <button
       className="button"
       onClick={() => this.handleClick()}>pay</button>
+      {
+        (errorMessage !== '') ?
+        <div className='error-message'>
+          <p>{errorMessage}</p>
+        </div>
+        : null
+      }
       </div>
     </div>
   );

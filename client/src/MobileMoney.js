@@ -8,12 +8,14 @@ class MobileMoney extends React.Component {
       mobileNumber: '',
       amount: '',
       pendingValidation: false
-    }
+    },
+    loading: false
     }
   }
 
   handleClick = async () => {
    const { amount, mobileNumber } = this.state.fields
+   this.setState({ loading: true })
    try {
    const data = await fetch(`http://localhost:5000/mobile-money`, {
     method: 'POST',
@@ -23,7 +25,7 @@ class MobileMoney extends React.Component {
     body: JSON.stringify({ amount, mobileNumber })
    })
    const res = await data.json()
-
+   this.setState({ loading: false })
    const { message: { status, authModelUsed, chargeResponseCode } } = res
    if(status === 'success-pending-validation'
    && authModelUsed === 'MOBILEMONEY'
@@ -73,8 +75,14 @@ class MobileMoney extends React.Component {
 
 
  render(){
-  const { pendingValidation } = this.state
-
+  const { pendingValidation, loading } = this.state
+  if(loading) {
+    return (
+      <div className="loader-container">
+      <div className="loader" />
+    </div>
+    )
+  }
   return (
     <div className="container">
       <div className="inner-container">
