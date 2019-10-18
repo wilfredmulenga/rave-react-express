@@ -50,25 +50,20 @@ class Card extends React.Component {
     const { cardNumber, expiryDate, cvv } = this.state.fields
     const { errorMessage } = this.state
 
-    if(!(cardNumber.length === 16)) {
-      this.setState({
-        errorMessage: 'card number length not valid'},() => {
-          return true
-        })
+    if(cardNumber.length !== 16) {
+      this.setState({ errorMessage: 'card number length not valid' })
+      return true
     }
-    return true
-    if(!(expiryDate.length === 5)) {
-      this.setState({
-        errorMessage: 'expiry date length not valid'},() => {
-          return true
-        })
+    if(expiryDate.length !== 5) {
+      this.setState({ errorMessage: 'expiry date length not valid' })
+      return true
     }
-    if(!(cvv.length === 3)) {
-      this.setState({
-        errorMessage: 'cvv length not valid'},() => {
-          return true
-        })
+    if(cvv.length !== 3) {
+      this.setState({ errorMessage: 'cvv length not valid'})
+      return true
     }
+
+    if(errorMessage.length > 0) return true
   }
 
   onInputChange = (evt) => {
@@ -81,7 +76,7 @@ class Card extends React.Component {
  render(){
 
   // TODO: configure eslint
-  // TODO: form validation
+  const { amount, cardNumber, expiryDate, cvv } = this.state.fields
   const { errorMessage, loading } = this.state
   if(loading) {
     return (
@@ -100,28 +95,28 @@ class Card extends React.Component {
       type="number"
       name="amount"
       onChange={this.onInputChange}
-      value={this.state.fields.amount}
+      value={amount}
       required />
       <input
       placeholder="card number"
       type="text"
       name="cardNumber"
       onChange={this.onInputChange}
-      value={this.state.fields.cardNumber}
+      value={cardNumber}
       required />
       <input
       placeholder="expiry date"
       type="text"
       name="expiryDate"
       onChange={this.onInputChange}
-      value={this.state.fields.expiryDate}
+      value={expiryDate}
       required />
       <input
       placeholder="cvv"
       type="number"
       name="cvv"
       onChange={this.onInputChange}
-      value={this.state.fields.cvv}
+      value={cvv}
       required />
       <button
       className="button"
