@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 class MobileMoney extends React.Component {
   constructor(){
@@ -68,6 +69,13 @@ class MobileMoney extends React.Component {
   renderPendingValidation = (
     <>
       <p>You should receive a prompt to authorize the transaction on the phone with the phone number used</p>
+      <br/>
+      <br/>
+      <Link to='/'>
+      <button
+         className="button"
+         >Return to home</button>
+      </Link>
     </>
   )
 

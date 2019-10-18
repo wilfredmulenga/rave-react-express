@@ -12,3 +12,27 @@ a {
   padding-top: 10%;
   text-align: center;
 }
+
+.button {
+  width: 30%;
+  color: white;
+  font-size: 1.2rem;
+  margin-top: 10%;
+  display: inline-block;
+  padding: 8px 24px;
+  opacity: 0.8;
+  border-radius: 4px;
+  background-color: #4B53C1;
+  cursor: pointer;
+  box-shadow: 0 5px #5E2C89;
+}
+
+.button:hover {
+    opacity : 1;
+}
+
+.button:active {
+  position: relative;
+  top: 7px;
+  box-shadow: none;
+}
