@@ -9,7 +9,7 @@ The project is built with react and express.
 clone the repository and run `npm install` in the root directory and the client folder.
 
 ### step 2
-you would need test api keys. To get them follow the link[here.](https://developer.flutterwave.com/docs/api-keys)
+you would need test api keys. To get them follow the link [here.](https://developer.flutterwave.com/docs/api-keys)
 Once you are done signing up you will be greeted with a dashboard.
 The test api keys should be in ["settings" then "api"](https://developer.flutterwave.com/changelog/how-to-get-your-staging-keys-from-the-rave-sandbox-environment).
 Copy the "Public Key" and "Secret Key" and add them to your .env file.
