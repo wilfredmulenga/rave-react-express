@@ -29,14 +29,14 @@ class Card extends React.Component {
     body: JSON.stringify({ amount, cardNumber, expiryDate, cvv })
    })
 
-   const res = await data.json()
-   const { message: { authurl, status }, statusCode } = res
+   const result = await data.json()
+   const { message: { authurl, status }, statusCode } = result
    if( statusCode === 200 && status === 'success-pending-validation' && authurl) {
     this.setState({ loading: false })
     window.location.assign(authurl)
    }
    if( statusCode === 400) {
-    this.setState({ errorMessage: res.message})
+    this.setState({ errorMessage: result.message})
    }
   } catch(error) {
    this.setState({
@@ -75,7 +75,6 @@ class Card extends React.Component {
 
  render(){
 
-  // TODO: configure eslint
   const { amount, cardNumber, expiryDate, cvv } = this.state.fields
   const { errorMessage, loading } = this.state
   if(loading) {

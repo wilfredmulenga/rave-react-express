@@ -28,9 +28,9 @@ class MobileMoney extends React.Component {
     },
     body: JSON.stringify({ amount, mobileNumber })
    })
-   const res = await data.json()
+   const result = await data.json()
    this.setState({ loading: false })
-   const { message: { status, authModelUsed, chargeResponseCode } } = res
+   const { message: { status, authModelUsed, chargeResponseCode } } = result
    if(status === 'success-pending-validation'
    && authModelUsed === 'MOBILEMONEY'
    && chargeResponseCode === '02'
