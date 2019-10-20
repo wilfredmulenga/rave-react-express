@@ -1,4 +1,4 @@
-# rave-test
+# rave-react-express
 
 This is a project to test the use of flutterwave's api for visa card and Zambia's MTN mobile-money payments.
 The project is built with react and express.
