@@ -14,18 +14,18 @@ const getKey = () => {
 
 const encrypt = (payload) => {
   payloadJSON = JSON.stringify(payload)
-  let cipher = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(getKey()))
-  cipher.start({iv: ''})
+  const cipher = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(getKey()))
+  cipher.start({ iv: '' })
   cipher.update(forge.util.createBuffer(payloadJSON, 'utf-8'))
   cipher.finish()
-  let encrypted = cipher.output
+  const encrypted = cipher.output
   return (forge.util.encode64(encrypted.getBytes()))
 }
 
 const raveResponse = async (payload) => {
   return request
     .post(process.env.RAVE_CHARGE_ENDPOINT_TEST)
-    .set({ 'Content-Type': 'application/json', 'Accept': 'application/json' })
+    .set({ 'Content-Type': 'application/json', Accept: 'application/json' })
     .send({
       PBFPubKey: process.env.RAVE_PUBLIC_KEY_TEST,
       client: encrypt(payload),
