@@ -32,9 +32,15 @@ router.post('/', async (req, res, next) => {
       message: result.body.data
     })
   } catch (error) {
+    if (error.response) {
+      res.json({
+        statusCode: error.response.status,
+        message: error.response.body.message
+      })
+    }
     res.json({
-      statusCode: error.response.status,
-      message: error.response.body.message
+      statusCode: 500,
+      message: error
     })
   }
 })
