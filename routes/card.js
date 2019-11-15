@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { raveResponse } = require('../common-helpers/helpers')
 
+// Don't forget to change the mode from 'test' to 'live' mode when testing with a real card
 router.post('/', async (req, res, next) => {
   const { amount, cardNumber: cardno, expiryDate, cvv } = req.body
   const expirymonth = expiryDate.substring(0, 2)

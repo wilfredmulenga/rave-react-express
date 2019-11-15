@@ -3,7 +3,8 @@ const router = express.Router()
 
 const { raveResponse } = require('../common-helpers/helpers')
 
-router.post('/', async (req, res, next) => {
+// Don't forget to change the mode from 'test' to 'live' mode when testing with a real mobile money account
+router.post('/', async (req, res) => {
   const { amount, mobileNumber: phonenumber } = req.body
   try {
     const payload = {
