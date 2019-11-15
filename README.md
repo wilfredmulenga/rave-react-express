@@ -19,7 +19,7 @@ You will also need to include the rave charge test endpoint `https://ravesandbox
 
 Now that everything is set up, you can run `npm run dev` in the root directory to start the server and application. The react app runs on port 3000 and server on port 5000. File changes reloads the application.
 
-To test visa card payments, try the "Test VisaCard 3D-Secure Authentication" card under [test cards](https://developer.f3lutterwave.com/docs/test-cards)
+To test visa card payments, try the "Test VisaCard 3D-Secure Authentication" card under [test cards](https://developer.flutterwave.com/docs/test-cards)
 At the moment, the MTN mobile-money payment does not work in the test environment but works when live.
 
 
